@@ -3,27 +3,25 @@ import java.io.*;
 
 /**
  * AssignmentFour.java
- * Purpose: Implements spell checker using LinkedLists.
+ * Purpose: Implements a spellchecker using LinkedLists.
  * @author Nathaniel Sigafoos
- * @version 1.0 3/21/17
+ * @version 1.1 3/24/17
  */
 public class AssignmentFour {
     //The number of valid characters a word can start with.
     private final int NUMBER_OF_Letters = 26;
     //The dictionary to store all the valid words.
     private MyLinkedList[] dictionary = new MyLinkedList[NUMBER_OF_Letters];
-
     /**
-     * Default constructor
-     * Loads the dictionary array on initialization.
+     * Initializes class and loads the dictionary.
      */
     public AssignmentFour () {
         loadDictionary(new File("./random_dictionary.txt"));
     }
     /**
-     * Fills the dictionary array with words from a given File
-     * Also allows for the dictionary to be refilled with different values
-     * @param f The file object being used to load the array
+     * Fills the dictionary array with words from a given File.
+     * Allows for the dictionary to be refilled with different values.
+     * @param f The file object being used to load the dictionary array.
      */
     private void loadDictionary (File f) {
         try (Scanner input = new Scanner(f)) {
@@ -37,6 +35,7 @@ public class AssignmentFour {
             }
             input.close();
         } catch (IOException e) {
+            System.out.println("Could not find the file '" + f.getName() +"'.");
             System.out.println(e);
         }
     }
@@ -46,7 +45,6 @@ public class AssignmentFour {
      * @param f The File being read.
      */
     public void spellcheck (File f) {
-        long start = System.nanoTime();
         //Counter variables
         long wordsFound = 0; //Total number of valid words found.
         long wordsNotFound = 0; //Total number of invalid words found.
@@ -82,22 +80,14 @@ public class AssignmentFour {
             //close the Scanner
             input.close();
             //print out the results
-            System.out.println("Number of words found:" + wordsFound);
-            System.out.println("Number of comparisons to find words: "
-                 + compsFound);
-            System.out.printf("Average number of comparisons to find a word: %.2f\n",
-            compsFound / (double)wordsFound);
-            System.out.println("Number of words not found: " + wordsNotFound);
-            System.out.println("Number of comparisons to find invalid words: "
-                + compsNotFound);
-            System.out.printf("Average number of comparisons to find an invalid word: %.2f\n",
-                compsNotFound / (double)wordsNotFound);
+            System.out.printf("Average number of comparisons to find a valid word: "
+                + "%.2f\n", compsFound / (double)wordsFound);
+            System.out.printf("Average number of comparisons to find an invalid word: "
+                + "%.2f\n", compsNotFound / (double)wordsNotFound);
         } catch (IOException e) {
-            System.out.println("Cannot find file '" + f.getName() +"'.");
+            System.out.println("Could find the file '" + f.getName() +"'.");
             System.out.println(e);
         }
-        long done = System.nanoTime();
-        System.out.printf("Total runtime: %.4f seconds.", (done - start) / 1e9);
     }
     public static void main (String[] args) {
         AssignmentFour a = new AssignmentFour();
