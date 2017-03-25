@@ -1,2 +1,2 @@
 # CSCI-C202_AssingmentFour
-Method to turn in Programming Assignment 4, for C202 class.
+Used to turn in Programming Assignment 4, for CSCI-C202, at IU Southeast.
