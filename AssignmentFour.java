@@ -58,8 +58,8 @@ public class AssignmentFour {
             while (input.hasNext()) {
                 //get the next "word" from the file
                 String word = input.next();
-                //remove any ' followed by 1+ letters
-                //and remove any non-alphabetical characters
+                //remove anything after a '
+                //and then remove any non-alphabetical characters
                 word = word.replaceAll("('[\\S]+)|[^a-zA-Z- ]", "");
                 //move on to the next word if this one is now empty
                 if (word.isEmpty()) continue;
@@ -80,9 +80,15 @@ public class AssignmentFour {
             //close the Scanner
             input.close();
             //print out the results
-            System.out.printf("Average number of comparisons to find a valid word: "
+            System.out.println("Words found: " + wordsFound);
+            System.out.println("Non-words not found: " + wordsNotFound);
+            System.out.println("Total comparisons to find words: " 
+                + compsFound);
+            System.out.println("Total comparisons to find non-words: " 
+                + compsNotFound);
+            System.out.printf("Average number of comparisons to find a word: "
                 + "%.2f\n", compsFound / (double)wordsFound);
-            System.out.printf("Average number of comparisons to find an invalid word: "
+            System.out.printf("Average number of comparisons to find a non-word: "
                 + "%.2f\n", compsNotFound / (double)wordsNotFound);
         } catch (IOException e) {
             System.out.println("Could find the file '" + f.getName() +"'.");
